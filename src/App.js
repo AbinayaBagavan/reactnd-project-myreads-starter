@@ -12,6 +12,10 @@ class BooksApp extends React.Component {
   }
   componentDidMount() {
     //console.log("Component mounted")
+    this.getBooks()
+  }
+
+  getBooks =() => {
     BooksAPI.getAll()
     .then((books) => {
       this.setState({books:books})
@@ -21,32 +25,10 @@ class BooksApp extends React.Component {
 
   shelfUpdate = (book,shelf) =>
   {     
-        if(book.shelf!=="none")     //Changing book that is already in display
-        {
-        this.setState((state) => (
-        {
-          books:state.books.map((b) =>{
-            if(b.title===book.title) {
-              //console.log("Book found displaying")
-              b.shelf=shelf
-              return b
-            }
-            else {
-              //console.log(b.title)
-              return b
-            }
-          })
-        }))
-      }
-      else    //Adding new book to state
-      {
-        //console.log("Its a new book")
-        book.shelf=shelf
-        this.setState((state) => ({
-          books:state.books.concat([book])
-        }))
-        console.log(this.state.books)
-      }
+      BooksAPI.update(book,shelf)
+      .then(()=>{
+        this.getBooks()
+      })
   }
   render() {
     const currentlyReading=this.state.books.filter((book) => book.shelf === 'currentlyReading')
