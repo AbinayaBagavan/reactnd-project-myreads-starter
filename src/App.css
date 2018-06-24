@@ -185,15 +185,3 @@ button {
     display: inline-block;
     font-size: 1pt;
 }
-
-.loader {
-    border: 6px solid #f3f3f3; /* Light grey */
-    border-top: 6px solid #5d8fe0; /* Blue */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    position: fixed; /* or absolute */
-    top: 50%;
-    left: 50%;
-    animation: spin 2s linear infinite;
-}

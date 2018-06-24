@@ -48,7 +48,7 @@ class SearchBooks extends Component {
   	}
   	else
   	{
-  		console.log("clearing page")
+  		//console.log("clearing page")
   		this.setState({
   			result:[],
   			query:''})

@@ -7,7 +7,7 @@ class Book extends Component {
 		//console.log("Book Component mounted")
 	}
 	onShelfUpdate = (e) =>{
-		console.log("Inside book update")
+		//console.log("Inside book update")
 		//console.log("the history is"+history)
 		let shelf=e.target.value
 		this.props.shelfUpdate(this.props.book,shelf)
