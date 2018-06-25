@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import ListBooks from './ListBooks'
 import SearchBooks from './SearchBooks'
 import * as BooksAPI from './BooksAPI'
@@ -11,33 +11,33 @@ class BooksApp extends React.Component {
     books:[],
   }
   componentDidMount() {
-    //console.log("Component mounted")
     this.getBooks()
   }
 
   getBooks =() => {
     BooksAPI.getAll()
     .then((books) => {
-      this.setState({books:books})
-      //console.log(this.state.books)
+      this.setState({books})
     })
   }
 
   shelfUpdate = (book,shelf) =>
   {     
-      BooksAPI.update(book,shelf)
-      .then(()=>{
-        this.getBooks()
-      })
+      BooksAPI.update(book, shelf).then(() => {
+      book.shelf = shelf        
+      this.setState(state => ({
+        books: state.books.filter(b => b.id !== book.id).concat(book)
+      }))     
+})
   }
   render() {
     const currentlyReading=this.state.books.filter((book) => book.shelf === 'currentlyReading')
     const wantToRead =this.state.books.filter((book) => book.shelf === 'wantToRead')
     const read =this.state.books.filter((book) => book.shelf === 'read')
-    //console.log("During render")
-    //console.log(this.state.books)
+
     return (
       <div className="app">
+            <Switch>
             <Route exact path="/" render={() => (
 
               <ListBooks 
@@ -52,11 +52,10 @@ class BooksApp extends React.Component {
               books={ this.state.books } 
               shelfUpdate={(book,shelf) =>{
                   this.shelfUpdate(book,shelf)
-                  //history.push('/')
-                  //this.forceUpdate()  
               }}
               />
               )}/>
+            </Switch>
       </div>
     )
   }

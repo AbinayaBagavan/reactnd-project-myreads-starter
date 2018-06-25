@@ -2,13 +2,7 @@ import React , { Component } from 'react'
 
 class Book extends Component {
 
-	componentDidMount()
-	{
-		//console.log("Book Component mounted")
-	}
 	onShelfUpdate = (e) =>{
-		//console.log("Inside book update")
-		//console.log("the history is"+history)
 		let shelf=e.target.value
 		this.props.shelfUpdate(this.props.book,shelf)
 

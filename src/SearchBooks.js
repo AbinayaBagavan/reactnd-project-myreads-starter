@@ -11,11 +11,7 @@ class SearchBooks extends Component {
     	query:''
   	}
    componentDidMount() {
-   	 BooksAPI.getAll().then(allBooks => {
-      this.setState({
-    	booksOnDisplay: allBooks.filter(book => book.shelf !== 'none')
-	  	})
-  		})
+   	 
   	}
   updateQuery(query) {
   	//console.log("updating query")
